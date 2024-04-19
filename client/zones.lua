@@ -105,6 +105,22 @@ lib.callback.register('qbx_customs:client:zone', function()
     return zoneId
 end)
 
+lib.callback.register('qbx_customs:client:openCustomsMenu', function()
+    print("Customs Event")
+    if cache.vehicle then
+        print("Found Vehicle")
+        if not lib.isTextUIOpen() then
+            lib.showTextUI(locale('textUI.tune'), {
+                icon = 'fa-solid fa-car',
+                position = 'left-center',
+            })
+        end
+        SetEntityVelocity(cache.vehicle, 0.0, 0.0, 0.0)
+        lib.hideTextUI()
+        openCustoms()
+    end
+end)
+
 lib.onCache('vehicle', function(vehicle)
     if not zoneId then return end
     if cache.vehicle and not vehicle then
